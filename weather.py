@@ -1,10 +1,23 @@
 from kivymd.app import MDApp
 from kivymd.uix.label import MDLabel
+from kivy.lang import Builder
+from kivymd.uix.screen import MDScreen
+
+class MainScreen(MDScreen):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 
-class MainApp(MDApp):
+
+
+
+
+class WeatherApp(MDApp):
     def build(self):
-        return MDLabel(text="Hello, World", halign="center")
+        Builder.load_file('style.kv')
+        self.theme_cls.theme_style = 'Dark'
+        self.screen = MainScreen('main_screen')
+        return self.screen
 
 
-MainApp().run()
+WeatherApp().run()
