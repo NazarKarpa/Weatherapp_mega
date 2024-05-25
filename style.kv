@@ -8,33 +8,42 @@
 
         MDLabel:
             id: label
-            text: '21121'
+            text: 'погода'
             adaptive_size: True
             color: "grey"
             pos: "12dp", "12dp"
             bold: True
+
 <MainScreen>:
     MDBoxLayout:
-        padding: '20sp'
-
-        pos_hint: {'center_x': 0.5, 'top': 1}
+        spacing: '15sp'
         orientation: 'vertical'
-        spacing: '20sp'
-        WeatherCard:
-            id: weathercard
+        MDTopAppBar:
+            title: "MDTopAppBar"
+            right_action_items: [["dots-vertical", lambda x: app.callback()]]
         MDBoxLayout:
-            size_hint: 1, None
-            orientation: 'horizontal'
+            padding: '25sp'
+            pos_hint: {'center_x': 0.5, 'top': 1}
+            orientation: 'vertical'
             spacing: '20sp'
 
-            MDTextField:
-                hint_text: "Round mode"
-                mode: "round"
-                max_text_length: 23
-                helper_text: "Massage"
-            MDFloatingActionButton:
-                icon: "search-web"
-                theme_icon_color: "Custom"
+            MDBoxLayout:
+                size_hint: 1, None
+                orientation: 'horizontal'
+                spacing: '20sp'
+                MDTextField:
+                    id: text_fell
+                    hint_text: "Round mode"
+                    mode: "round"
+                    max_text_length: 23
+                    helper_text: "Massage"
+                MDFloatingActionButton:
+                    id: search_button
+                    icon: "search-web"
+                    theme_icon_color: "Custom"
+                    md_bg_color: '#f0b105'
+                    on_press: root.weather_search()
 
-                md_bg_color: '#f0b105'
+            WeatherCard:
+                id: weather_card
 
