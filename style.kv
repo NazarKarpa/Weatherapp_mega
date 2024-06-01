@@ -1,18 +1,49 @@
 <WeatherCard>
     padding: 4
     size_hint: None, None
-    size_hint: 0.8, 0.8
+    size_hint: 1, 1
 
-    MDRelativeLayout:
-
-
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: '15sp'
+        pos_hint: {'center_y':0.5}
         MDLabel:
-            id: label
-            text: 'погода'
+            id: desc_text
+            text: 'Хмарно'
             adaptive_size: True
             color: "grey"
-            pos: "12dp", "12dp"
-            bold: True
+            pos_hint: {'center_x':0.5}
+            font_style: 'H4'
+        AsyncImage:
+            id: weather_icon
+            pos_hint: {'center_x':0.5}
+
+            size_hint: (None, None)
+            height: '130sp'
+            width: '180sp'
+            fit_mode: 'contain'
+        MDLabel:
+            id: temp_text
+            text: '21°C'
+            adaptive_size: True
+            color: "grey"
+            pos_hint: {'center_x':0.5}
+            font_style: 'H3'
+        MDLabel:
+            id: rain_text
+            text: 'Йморівність опадів 25%'
+            adaptive_size: True
+            color: "grey"
+            pos_hint: {'center_x':0.5}
+            font_style: 'H6'
+        MDLabel:
+            id: wind_text
+            text: 'Швидкість вітру 25м/с'
+            adaptive_size: True
+            color: "grey"
+            pos_hint: {'center_x':0.5}
+            font_style: 'H6'
+
 
 <MainScreen>:
     MDBoxLayout:
@@ -44,6 +75,9 @@
                     md_bg_color: '#f0b105'
                     on_press: root.weather_search()
 
-            WeatherCard:
-                id: weather_card
+            MDCarousel:
+                id: weather_carousel
+                direction: 'right'
+                padding: '15sp'
+                size_hint: 0.9, 0.8
 

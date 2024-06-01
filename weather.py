@@ -10,8 +10,14 @@ import requests as req
 
 
 class WeatherCard(MDCard):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+
+        def __init__(self, descripition, icon, temp, rain, wind, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.ids.desc_text.text = descripition
+            self.ids.temp_text.text = f'{temp}°C'
+            self.ids.rain_text.text = f'Йморівність опадів: {rain * 100}%'
+            self.ids.wind_text.text = f'Швидкість вітру: {wind} м/с'
+            self.ids.weather_icon.source = f"https://openweathermap.org/img/wn/{icon}@2x.png"
 
 
 
@@ -32,10 +38,17 @@ class MainScreen(MDScreen):
         data = req.get(API_URL, api_params)
         response = data.json()
         print(response)
-
         descripition = response['weather'][0]['description']
-        self.ids.weather_card.ids.label.text = descripition#Звертаємось до карточки і переіменовуємо текст
+        icon = response['weather'][0]['icon']
+        temp = response['main']['temp']
 
+        if 'rain' in response:
+            rain = response['rain']['1h']
+        else:
+            rain = 0
+        wind = response['wind']['speed']
+        new_card = WeatherCard(descripition, icon, temp, rain, wind)
+        self.ids.weather_carousel.add_widget(new_card)
 
 class WeatherApp(MDApp):
     def build(self):
