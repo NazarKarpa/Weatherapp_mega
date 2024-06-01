@@ -25,6 +25,7 @@ class MainScreen(MDScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     def weather_search(self):
+        self.ids.weather_carousel.clear_widgets()
         #Отримуємо текст з кествого поля міста
         city = self.ids.text_fell.text.strip().lower()
         #Робимо налажтування
